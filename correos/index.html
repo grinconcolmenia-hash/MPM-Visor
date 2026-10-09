@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#1a1a20">
+<title>Propuestas estéticas · Correos Más Paz Mental</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Elsie+Swash+Caps:wght@400;900&family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --azul:#516296; --azul-claro:#677cbc; --lavanda:#a7acd7; --turquesa:#84d0c2;
+    --lima:#e3e787; --durazno:#fea168; --carbon:#4c4641; --marfil:#f2f0ee;
+    --noche:#1a1a20; --noche-2:#22222a; --noche-3:#2c2c37;
+    --linea:rgba(167,172,215,.17); --claro:#eeeef3; --tenue:#9a9aae;
+    --display:'Elsie Swash Caps',Georgia,serif;
+    --sans:'Nunito Sans','Segoe UI',system-ui,Arial,sans-serif;
+    --sombra:0 1px 2px rgba(8,8,14,.5), 0 14px 36px -14px rgba(81,98,150,.5);
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--noche); color:var(--claro); font-family:var(--sans); line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    background-image:
+      radial-gradient(900px 480px at 8% -6%, rgba(81,98,150,.24), transparent 60%),
+      radial-gradient(640px 400px at 102% 2%, rgba(132,208,194,.07), transparent 55%);
+    background-attachment:fixed;
+  }
+  .app{display:grid; grid-template-columns:270px 1fr 330px; height:100vh; overflow:hidden}
+
+  /* ---- lateral izquierdo ---- */
+  aside{
+    background:linear-gradient(180deg,var(--noche-2),rgba(26,26,32,.55));
+    border-right:1px solid var(--linea); padding:26px 18px; overflow-y:auto;
+    display:flex; flex-direction:column; gap:20px;
+  }
+  .marca{display:flex; flex-direction:column; align-items:flex-start}
+  .marca h1{font-family:var(--display); font-weight:400; font-size:23px; margin:0 0 2px; color:#fff; letter-spacing:-.01em}
+  .marca p{margin:0; font-size:12px; color:var(--tenue)}
+  .grupo-tit{font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--tenue); font-weight:800; margin:0 0 7px 2px}
+  .molde{
+    appearance:none; width:100%; text-align:left; cursor:pointer; font-family:inherit;
+    background:rgba(255,255,255,.03); border:1px solid transparent; border-radius:11px;
+    padding:11px 12px; color:var(--claro); font-size:13.5px; margin-bottom:6px;
+    display:flex; flex-direction:column; gap:2px;
+    transition:transform .18s cubic-bezier(.22,1,.36,1), background-color .18s ease, border-color .18s ease;
+  }
+  .molde:hover{background:rgba(167,172,215,.10); border-color:var(--linea); transform:translateX(3px)}
+  .molde:focus-visible{outline:2px solid var(--lavanda); outline-offset:2px}
+  .molde[aria-current="true"]{background:linear-gradient(90deg,rgba(81,98,150,.42),rgba(81,98,150,.12)); border-color:rgba(167,172,215,.45); box-shadow:var(--sombra)}
+  .molde b{font-weight:700; letter-spacing:-.01em}
+  .molde span{font-size:11.5px; color:var(--tenue)}
+  .molde[aria-current="true"] span{color:#c9cce6}
+  .pref i{font-style:normal}
+  .pref{font-size:10.5px; color:var(--turquesa); font-weight:800; letter-spacing:.04em}
+  aside footer{margin-top:auto; border-top:1px solid var(--linea); padding-top:14px; display:flex; flex-direction:column; gap:8px}
+  .btn{
+    appearance:none; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:700;
+    border-radius:10px; padding:10px 13px; border:1px solid var(--linea);
+    background:rgba(255,255,255,.05); color:var(--claro);
+    transition:background-color .18s ease, transform .18s cubic-bezier(.22,1,.36,1), border-color .18s ease;
+  }
+  .btn:hover{background:rgba(167,172,215,.14); border-color:rgba(167,172,215,.4)}
+  .btn:focus-visible{outline:2px solid var(--lavanda); outline-offset:2px}
+  .btn:active{transform:scale(.975)}
+  .btn-fuerte{background:var(--azul); border-color:transparent; color:#fff}
+  .btn-fuerte:hover{background:var(--azul-claro)}
+
+  /* ---- centro ---- */
+  main{display:flex; flex-direction:column; min-width:0; overflow:hidden}
+  .barra{
+    display:flex; align-items:center; gap:14px; flex-wrap:wrap; padding:18px 26px;
+    border-bottom:1px solid var(--linea); background:rgba(26,26,32,.78); backdrop-filter:blur(10px);
+  }
+  .barra h2{font-family:var(--display); font-weight:400; font-size:20px; margin:0; color:#fff; flex:1; min-width:180px; letter-spacing:-.01em}
+  .tabs{display:flex; gap:3px; background:rgba(255,255,255,.05); padding:3px; border-radius:11px}
+  .tab{
+    appearance:none; border:0; cursor:pointer; font-family:inherit; font-size:12.5px; font-weight:700;
+    padding:7px 14px; border-radius:9px; background:transparent; color:var(--tenue);
+    transition:background-color .18s ease,color .18s ease,transform .18s cubic-bezier(.22,1,.36,1);
+  }
+  .tab:hover{color:var(--claro)}
+  .tab:focus-visible{outline:2px solid var(--lavanda); outline-offset:2px}
+  .tab:active{transform:scale(.97)}
+  .tab[aria-selected="true"]{background:var(--azul); color:#fff}
+  .lienzo{flex:1; overflow:auto; padding:24px; display:flex; justify-content:center; gap:18px}
+  .visor{width:100%; max-width:640px; background:#fff; border-radius:13px; overflow:hidden; box-shadow:var(--sombra)}
+  .visor iframe{display:block; width:100%; height:100%; min-height:76vh; border:0; background:#fff}
+  .comparar{display:flex; gap:14px; width:100%; justify-content:center; align-items:flex-start}
+  .col{flex:1; max-width:360px; display:flex; flex-direction:column; gap:7px}
+  .col h3{margin:0; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--tenue); font-weight:800; text-align:center}
+  .col .caja{background:#fff; border-radius:11px; overflow:hidden; box-shadow:var(--sombra)}
+  .col iframe{display:block; width:100%; height:72vh; border:0; background:#fff}
+  .vacio{color:var(--tenue); font-size:13.5px; text-align:center; padding:40px 20px; max-width:420px; margin:auto}
+
+  /* ---- panel de comentarios ---- */
+  .notas{
+    background:linear-gradient(180deg,var(--noche-2),rgba(26,26,32,.6));
+    border-left:1px solid var(--linea); padding:22px 18px; overflow-y:auto;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .notas h3{font-family:var(--display); font-weight:400; font-size:17px; margin:0; color:#fff}
+  .notas .dónde{font-size:11.5px; color:var(--tenue); margin:-10px 0 0}
+  .tipos{display:flex; gap:5px}
+  .tipo{
+    appearance:none; cursor:pointer; font-family:inherit; font-size:11.5px; font-weight:700;
+    flex:1; padding:7px 4px; border-radius:9px; border:1px solid var(--linea);
+    background:rgba(255,255,255,.04); color:var(--tenue);
+    transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .18s cubic-bezier(.22,1,.36,1);
+  }
+  .tipo:hover{color:var(--claro)}
+  .tipo:focus-visible{outline:2px solid var(--lavanda); outline-offset:2px}
+  .tipo:active{transform:scale(.96)}
+  .tipo[aria-pressed="true"]{color:#1a1a20; border-color:transparent}
+  .tipo[data-t="gusta"][aria-pressed="true"]{background:var(--turquesa)}
+  .tipo[data-t="quita"][aria-pressed="true"]{background:var(--durazno)}
+  .tipo[data-t="idea"][aria-pressed="true"]{background:var(--lima)}
+  textarea{
+    width:100%; min-height:88px; resize:vertical; font-family:inherit; font-size:13.5px; line-height:1.55;
+    background:rgba(255,255,255,.05); color:var(--claro); border:1px solid var(--linea);
+    border-radius:11px; padding:11px 12px;
+  }
+  textarea::placeholder{color:var(--tenue)}
+  textarea:focus-visible{outline:2px solid var(--lavanda); outline-offset:1px}
+  .lista{display:flex; flex-direction:column; gap:9px; margin-top:4px}
+  .nota{
+    background:rgba(255,255,255,.045); border:1px solid var(--linea); border-left:3px solid var(--lavanda);
+    border-radius:10px; padding:10px 11px; font-size:13px; position:relative;
+  }
+  .nota.gusta{border-left-color:var(--turquesa)}
+  .nota.quita{border-left-color:var(--durazno)}
+  .nota.idea{border-left-color:var(--lima)}
+  .nota .meta{font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--tenue); font-weight:800; margin-bottom:3px}
+  .nota p{margin:0; white-space:pre-wrap; word-break:break-word}
+  .nota .x{
+    position:absolute; top:7px; right:8px; cursor:pointer; background:transparent; border:0;
+    color:var(--tenue); font-size:15px; line-height:1; padding:2px 4px; border-radius:6px;
+  }
+  .nota .x:hover{color:var(--durazno); background:rgba(254,161,104,.12)}
+  .nota .x:focus-visible{outline:2px solid var(--lavanda); outline-offset:1px}
+  .conteo{font-size:11.5px; color:var(--tenue)}
+  .oculto{display:none !important}
+  @media (max-width:1250px){
+    .app{grid-template-columns:230px 1fr 290px}
+  }
+  @media (max-width:980px){
+    .app{grid-template-columns:1fr; height:auto; overflow:visible}
+    aside,.notas{border:0; border-bottom:1px solid var(--linea); overflow:visible}
+    .lienzo{padding:14px}
+  }
+
+  /* ===== celular ===== */
+  .volver{display:inline-flex; align-items:center; gap:6px; color:var(--tenue); text-decoration:none; font-size:12px; font-weight:700; margin-bottom:10px; border-radius:8px; transition:color .18s ease}
+  .volver:hover{color:var(--claro)}
+  .volver:focus-visible{outline:2px solid var(--lavanda); outline-offset:3px}
+  .fab,.velo,.asa,.cerrar-hoja,.solo-movil,.pista-cmp{display:none}
+  @media (max-width:980px){
+    html,body{height:100%; overflow:hidden; overscroll-behavior:none}
+    body{background-attachment:scroll}
+    .app{display:flex; flex-direction:column; height:100vh; height:100dvh; overflow:hidden}
+
+    /* cabecera: título y los moldes como fichas que se deslizan */
+    aside{flex:none; border:0; border-bottom:1px solid var(--linea); padding:calc(10px + env(safe-area-inset-top)) 0 10px; gap:10px; overflow:visible}
+    .marca{flex-direction:row; align-items:center; gap:10px; padding:0 16px}
+    .volver{margin:0 0 0 -6px; width:36px; height:36px; justify-content:center; flex:none; border-radius:50%; background:rgba(255,255,255,.05)}
+    .volver span{display:none}
+    .marca h1{font-size:19px; margin:0}
+    .marca p{display:none}
+    .grupo-tit{display:none}
+    #moldes{display:flex; gap:8px; overflow-x:auto; padding:2px 16px; scrollbar-width:none; scroll-padding:0 16px; -webkit-overflow-scrolling:touch}
+    #moldes::-webkit-scrollbar{display:none}
+    .molde{flex:none; width:auto; margin:0; flex-direction:row; align-items:center; gap:7px; min-height:40px; padding:8px 14px; border-radius:999px; white-space:nowrap; border-color:var(--linea)}
+    .molde:hover{transform:none}
+    .molde span:not(.pref){display:none}
+    .molde .pref{background:var(--turquesa); color:#1a1a20; border-radius:999px; padding:1px 7px; font-size:10.5px; letter-spacing:0}
+    .molde .pref i{display:none}
+    aside footer{display:none}
+
+    /* centro: el correo ocupa todo lo que queda */
+    main{flex:1; min-height:0}
+    .barra{padding:10px 0 10px; gap:8px; flex-direction:column; align-items:stretch; flex-wrap:nowrap; backdrop-filter:none; background:transparent; border-bottom:0}
+    .barra h2{font-size:14px; font-family:var(--sans); font-weight:600; color:var(--tenue); min-width:0; padding:0 16px; flex:none; letter-spacing:0}
+    .tabs{margin:0 12px; overflow-x:auto; scrollbar-width:none; border-radius:13px; padding:4px}
+    .tabs::-webkit-scrollbar{display:none}
+    .tab{flex:1 1 0; min-width:0; min-height:40px; padding:8px 4px; white-space:nowrap}
+    .tab span{display:none}
+    .barra h2::after{content:" · " attr(data-ver); color:var(--claro)}
+    .lienzo{padding:0 12px calc(12px + env(safe-area-inset-bottom)); overflow:hidden; gap:0}
+    .visor{max-width:none; height:100%; border-radius:14px}
+    .visor iframe{min-height:0; height:100%}
+
+    /* comparar: las cuatro en fila, se pasan con el dedo */
+    .comparar{height:100%; gap:10px; justify-content:flex-start; overflow-x:auto; scroll-snap-type:x mandatory; margin:0 -12px; padding:0 12px; width:auto; scroll-padding:0 12px; scrollbar-width:none; -webkit-overflow-scrolling:touch}
+    .comparar::-webkit-scrollbar{display:none}
+    .col{flex:none; width:86%; max-width:none; height:100%; scroll-snap-align:start; min-height:0}
+    @media (min-width:600px){ .col{width:46%} .visor{max-width:640px} .lienzo{justify-content:center} }
+    .col h3{flex:none}
+    .col .caja{flex:1; min-height:0; border-radius:14px}
+    .col iframe{height:100%}
+
+    /* comentarios: una hoja que sube desde abajo */
+    .fab{display:flex; align-items:center; gap:8px; position:fixed; right:16px; bottom:calc(22px + env(safe-area-inset-bottom)); z-index:30;
+      appearance:none; border:0; cursor:pointer; font-family:inherit; font-size:14px; font-weight:800; color:#fff; background:var(--azul);
+      min-height:50px; padding:0 20px 0 16px; border-radius:999px;
+      box-shadow:0 2px 4px rgba(8,8,14,.5), 0 14px 30px -8px rgba(81,98,150,.85);
+      transition:transform .2s cubic-bezier(.22,1,.36,1), background-color .18s ease; -webkit-tap-highlight-color:transparent}
+    .fab:active{transform:scale(.95)}
+    .fab:focus-visible{outline:2px solid var(--lavanda); outline-offset:3px}
+    .fab b{background:var(--turquesa); color:#1a1a20; border-radius:999px; min-width:20px; height:20px; padding:0 6px; font-size:11.5px; display:inline-flex; align-items:center; justify-content:center}
+    .fab b:empty{display:none}
+    .velo{display:block; position:fixed; inset:0; z-index:40; background:rgba(8,8,14,.6); opacity:0; pointer-events:none; transition:opacity .25s ease}
+    .notas{position:fixed; left:0; right:0; bottom:0; z-index:50; max-height:86dvh; border:0; border-top:1px solid var(--linea);
+      border-radius:22px 22px 0 0; background:var(--noche-2); padding:8px 18px calc(20px + env(safe-area-inset-bottom));
+      transform:translateY(105%); transition:transform .34s cubic-bezier(.22,1,.36,1); box-shadow:0 -20px 50px -10px rgba(0,0,0,.6); overscroll-behavior:contain}
+    body.hoja .notas{transform:none}
+    body.hoja .velo{opacity:1; pointer-events:auto}
+    body.hoja .fab{transform:scale(.8); opacity:0; pointer-events:none}
+    .asa{display:block; width:40px; height:4px; border-radius:4px; background:rgba(167,172,215,.4); margin:2px auto 6px; flex:none}
+    .cerrar-hoja{display:flex; align-items:center; justify-content:center; position:absolute; top:14px; right:14px; width:40px; height:40px; border-radius:50%;
+      appearance:none; border:0; cursor:pointer; background:rgba(255,255,255,.07); color:var(--claro); font-size:17px; line-height:1}
+    .cerrar-hoja:focus-visible{outline:2px solid var(--lavanda); outline-offset:2px}
+    .notas h3{font-size:19px; padding-right:48px}
+    .tipo{min-height:42px; font-size:13px}
+    textarea{font-size:16px; min-height:96px}
+    .btn{min-height:46px; font-size:14px}
+    .solo-movil{display:flex; flex-direction:column; gap:8px; border-top:1px solid var(--linea); padding-top:14px; margin-top:4px}
+    .nota .x{width:36px; height:36px; top:2px; right:2px}
+  }
+  @media (max-width:980px) and (prefers-reduced-motion:reduce){ .notas,.velo,.fab{transition:none} }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <aside>
+    <div class="marca">
+      <a class="volver" href="../" aria-label="Volver al inicio"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg><span>Inicio</span></a>
+      <h1>Propuestas estéticas</h1>
+      <p>Correos Más Paz Mental · 5 moldes × 3 versiones + el original</p>
+    </div>
+
+    <div>
+      <p class="grupo-tit">Los moldes</p>
+      <div id="moldes"></div>
+    </div>
+
+    <footer>
+      <button class="btn btn-fuerte" id="exportar">Copiar todos mis comentarios</button>
+      <button class="btn" id="limpiar">Borrar mis comentarios</button>
+      <p class="conteo" id="conteo">Sin comentarios todavía.</p>
+    </footer>
+  </aside>
+
+  <main>
+    <div class="barra">
+      <h2 id="titulo">—</h2>
+      <div class="tabs" role="tablist">
+        <button class="tab" role="tab" data-v="original" aria-selected="false">Original</button>
+        <button class="tab" role="tab" data-v="v1" aria-selected="true">V1<span> Contención</span></button>
+        <button class="tab" role="tab" data-v="v2" aria-selected="false">V2<span> Estructura</span></button>
+        <button class="tab" role="tab" data-v="v3" aria-selected="false">V3<span> Editorial</span></button>
+        <button class="tab" role="tab" data-v="cmp" aria-selected="false">Comparar</button>
+      </div>
+    </div>
+    <div class="lienzo" id="lienzo">
+      <div class="visor" id="visor"><iframe id="marco" title="Vista de la propuesta"></iframe></div>
+      <div class="comparar oculto" id="cmp"></div>
+    </div>
+  </main>
+
+  <div class="velo" id="velo"></div>
+  <div class="notas" id="hoja">
+    <span class="asa" aria-hidden="true"></span>
+    <button class="cerrar-hoja" id="cerrar-hoja" aria-label="Cerrar comentarios">✕</button>
+    <h3>Tus comentarios</h3>
+    <p class="dónde" id="donde">—</p>
+    <div class="tipos">
+      <button class="tipo" data-t="gusta" aria-pressed="true">Me gusta</button>
+      <button class="tipo" data-t="quita" aria-pressed="false">Quitar</button>
+      <button class="tipo" data-t="idea" aria-pressed="false">Idea</button>
+    </div>
+    <textarea id="texto" placeholder="Qué te gusta, qué sobra, qué cambiarías…&#10;&#10;Ctrl+Enter para guardar"></textarea>
+    <button class="btn btn-fuerte" id="añadir">Guardar comentario</button>
+    <div class="lista" id="lista"></div>
+    <div class="solo-movil">
+      <button class="btn btn-fuerte" data-accion="exportar">Copiar todos mis comentarios</button>
+      <button class="btn" data-accion="limpiar">Borrar mis comentarios</button>
+    </div>
+  </div>
+
+  <button class="fab" id="fab" aria-controls="hoja" aria-expanded="false"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.4 8.4 0 0 1-12.4 7.4L3 20.5l1.6-5.2A8.4 8.4 0 1 1 21 11.5z"/></svg>Comentar <b id="fab-n"></b></button>
+
+</div>
+
+<script>
+const MOLDES = [
+  { id:"valor-conexion",      nombre:"Valor y conexión",   que:"Es una carta" },
+  { id:"tema-del-mes",        nombre:"Tema del mes",       que:"Es un programa" },
+  { id:"newsletter",          nombre:"Newsletter",         que:"Es una revista" },
+  { id:"lanzamiento-venta",   nombre:"Lanzamiento y venta",que:"Es un argumento" },
+  { id:"modulo-psicolideres", nombre:"Módulo PsicoLíderes",que:"Es un documento" },
+];
+const VERSIONES = { original:"Original", v1:"V1 Contención", v2:"V2 Estructura", v3:"V3 Editorial" };
+/* El original es el correo de prueba con el diseño que ya se usa hoy: mismo texto, otra carpeta. */
+const ruta = (m, k) => k === "original"
+  ? `original/${m}/correo.html`
+  : `${m}/${k}/correo.html`;
+const CLAVE = "mpm-comentarios-esteticos";
+
+let molde = MOLDES[0].id, version = "v1", tipo = "gusta";
+let notas = JSON.parse(localStorage.getItem(CLAVE) || "[]");
+
+const $ = id => document.getElementById(id);
+const guardar = () => { localStorage.setItem(CLAVE, JSON.stringify(notas)); pintarLista(); pintarMoldes(); };
+
+/* ---- lateral ---- */
+function pintarMoldes(){
+  $("moldes").innerHTML = "";
+  MOLDES.forEach(m => {
+    const n = notas.filter(x => x.molde === m.id).length;
+    const b = document.createElement("button");
+    b.className = "molde"; b.type = "button";
+    b.setAttribute("aria-current", m.id === molde ? "true" : "false");
+    b.innerHTML = `<b>${m.nombre}</b><span>${m.que}</span>` +
+      (n ? `<span class="pref">${n}<i> comentario${n>1?"s":""}</i></span>` : ``);
+    b.addEventListener("click", () => { molde = m.id; render(); });
+    $("moldes").appendChild(b);
+  });
+  const act = $("moldes").querySelector('[aria-current="true"]');
+  if(act && matchMedia("(max-width:980px)").matches) act.scrollIntoView({inline:"center", block:"nearest"});
+}
+
+/* ---- centro ---- */
+function render(){
+  const m = MOLDES.find(x => x.id === molde);
+  $("titulo").textContent = `${m.nombre} · ${m.que}`;
+  $("titulo").dataset.ver = version === "cmp" ? "las cuatro, desliza" : VERSIONES[version];
+  [...document.querySelectorAll(".tab")].forEach(t =>
+    t.setAttribute("aria-selected", t.dataset.v === version ? "true" : "false"));
+  const v = Date.now();
+  if(version === "cmp"){
+    $("visor").classList.add("oculto"); $("cmp").classList.remove("oculto");
+    $("cmp").innerHTML = Object.keys(VERSIONES).map(k =>
+      `<div class="col"><h3>${VERSIONES[k]}</h3><div class="caja">` +
+      `<iframe src="${ruta(molde, k)}?v=${v}" title="${VERSIONES[k]}"></iframe></div></div>`
+    ).join("");
+    $("donde").textContent = `${m.nombre} · comparando las cuatro`;
+  } else {
+    $("cmp").classList.add("oculto"); $("visor").classList.remove("oculto");
+    $("marco").src = `${ruta(molde, version)}?v=${v}`;
+    $("donde").textContent = `${m.nombre} · ${VERSIONES[version]}`;
+  }
+  pintarMoldes(); pintarLista();
+}
+[...document.querySelectorAll(".tab")].forEach(t =>
+  t.addEventListener("click", () => { version = t.dataset.v; render(); }));
+
+/* ---- comentarios ---- */
+[...document.querySelectorAll(".tipo")].forEach(b =>
+  b.addEventListener("click", () => {
+    tipo = b.dataset.t;
+    [...document.querySelectorAll(".tipo")].forEach(o =>
+      o.setAttribute("aria-pressed", o.dataset.t === tipo ? "true" : "false"));
+  }));
+
+function añadir(){
+  const t = $("texto").value.trim();
+  if(!t) return;
+  notas.push({ molde, version: version === "cmp" ? "general" : version, tipo, texto:t, cuando:new Date().toISOString() });
+  $("texto").value = "";
+  guardar();
+}
+$("añadir").addEventListener("click", añadir);
+$("texto").addEventListener("keydown", e => { if(e.key === "Enter" && (e.ctrlKey||e.metaKey)) añadir(); });
+
+function pintarLista(){
+  const mias = notas.map((n,i) => ({...n, i})).filter(n => n.molde === molde).reverse();
+  $("lista").innerHTML = mias.length ? "" : `<p class="conteo">Nada todavía para este molde.</p>`;
+  mias.forEach(n => {
+    const d = document.createElement("div");
+    d.className = `nota ${n.tipo}`;
+    const etq = {gusta:"Me gusta", quita:"Quitar", idea:"Idea"}[n.tipo];
+    d.innerHTML = `<div class="meta">${etq} · ${n.version === "general" ? "general" : VERSIONES[n.version] || n.version}</div>` +
+                  `<p></p><button class="x" title="Borrar" aria-label="Borrar comentario">✕</button>`;
+    d.querySelector("p").textContent = n.texto;
+    d.querySelector(".x").addEventListener("click", () => { notas.splice(n.i,1); guardar(); });
+    $("lista").appendChild(d);
+  });
+  $("fab-n").textContent = notas.length || "";
+  $("conteo").textContent = notas.length
+    ? `${notas.length} comentario${notas.length>1?"s":""} en total.`
+    : "Sin comentarios todavía.";
+}
+
+/* ---- exportar ---- */
+$("exportar").addEventListener("click", async () => {
+  if(!notas.length){ alert("Todavía no has escrito ningún comentario."); return; }
+  let md = "# Comentarios a las propuestas estéticas\n\n";
+  MOLDES.forEach(m => {
+    const mias = notas.filter(n => n.molde === m.id);
+    if(!mias.length) return;
+    md += `## ${m.nombre}\n\n`;
+    mias.forEach(n => {
+      const etq = {gusta:"ME GUSTA", quita:"QUITAR", idea:"IDEA"}[n.tipo];
+      const ver = n.version === "general" ? "general" : (VERSIONES[n.version] || n.version);
+      md += `- **${etq}** (${ver}): ${n.texto}\n`;
+    });
+    md += "\n";
+  });
+  try{
+    await navigator.clipboard.writeText(md);
+    $("exportar").textContent = "¡Copiado! Pégamelo en el chat";
+    setTimeout(() => $("exportar").textContent = "Copiar todos mis comentarios", 2600);
+  }catch{
+    const b = new Blob([md], {type:"text/markdown"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(b); a.download = "comentarios-correos.md"; a.click();
+  }
+});
+$("limpiar").addEventListener("click", () => {
+  if(notas.length && confirm("¿Borrar todos tus comentarios?")){ notas = []; guardar(); }
+});
+
+/* ---- celular: hoja de comentarios y botones repetidos dentro de ella ---- */
+if(matchMedia("(max-width:980px)").matches) $("texto").placeholder = "Qué te gusta, qué sobra, qué cambiarías…";
+const hoja = abre => { document.body.classList.toggle("hoja", abre); $("fab").setAttribute("aria-expanded", abre ? "true" : "false"); };
+$("fab").addEventListener("click", () => hoja(true));
+$("velo").addEventListener("click", () => hoja(false));
+$("cerrar-hoja").addEventListener("click", () => hoja(false));
+document.addEventListener("keydown", e => { if(e.key === "Escape") hoja(false); });
+document.querySelectorAll("[data-accion]").forEach(b =>
+  b.addEventListener("click", () => $(b.dataset.accion).click()));
+
+render();
+</script>
+</body>
+</html>

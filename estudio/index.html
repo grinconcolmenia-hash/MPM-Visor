@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f2f0ee">
+<title>Estudio MPM · lo que hace</title>
+<link rel="stylesheet" href="marca/fuentes/fuentes.css">
+<style>
+:root{--papel:#f2f0ee;--crema:#fffaf6;--tinta:#4c4641;--gris:#7a726b;--azul:#516296;--lav:#e4e7f3;--linea:#e0dbd5;--menta:#4d7d74}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--papel);color:var(--tinta);font:400 17px/1.55 "Avenir LT Pro","Segoe UI",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+b{font-weight:800}
+.ancho{max-width:1360px;margin:0 auto;padding:0 32px}
+:focus-visible{outline:3px solid #677cbc;outline-offset:2px}
+
+.barra{position:sticky;top:0;z-index:10;background:rgba(242,240,238,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--linea)}
+.barra .ancho{display:flex;align-items:center;gap:20px;height:58px}
+.barra img{height:21px}
+.barra nav{margin-left:auto;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.barra nav a{white-space:nowrap;text-decoration:none;color:var(--tinta);font-size:15px;font-weight:500;padding:7px 14px;border-radius:999px;transition:background-color .2s}
+.barra nav a:hover{background:var(--lav)}
+.barra nav a span{font-family:"Elsie",serif;color:var(--azul);margin-right:6px}
+
+.portada{padding:64px 0 26px}
+h1{font-weight:500;font-size:clamp(34px,5vw,58px);line-height:1.08;letter-spacing:-.02em;margin:0 0 14px;text-wrap:balance}
+h1 em{font-family:"Elsie",serif;font-style:normal;color:var(--azul)}
+.portada p{font-size:20px;max-width:38em;margin:0;color:var(--gris)}
+
+section{padding:64px 0 24px}
+.cab{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:6px}
+.cab .n{font-family:"Elsie",serif;font-size:44px;line-height:1;color:var(--azul)}
+h2{font-weight:500;font-size:clamp(28px,3.4vw,40px);letter-spacing:-.015em;line-height:1.15;margin:0}
+.sub{font-size:18px;color:var(--gris);max-width:44em;margin:0 0 28px}
+h3{font-size:19px;font-weight:800;margin:0}
+
+/* 1 parrilla: perfil de Instagram */
+.ig{max-width:860px;margin:0 auto;background:#fff;border-radius:22px;border:1px solid var(--linea);overflow:hidden;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:#111}
+.ig-perfil{display:flex;gap:30px;align-items:center;padding:30px 36px 24px}
+.ig-av{flex:none;width:98px;height:98px;border-radius:50%;padding:3px;background:linear-gradient(135deg,#96a4d0,#84d0c2)}
+.ig-av span{display:flex;align-items:center;justify-content:center;width:100%;height:100%;border-radius:50%;background:#f2f0ee;border:3px solid #fff}
+.ig-av img{width:74%}
+.ig-perfil h3{font-size:20px;font-weight:600;margin:0 0 8px}
+.ig-perfil .cifra{font-size:15px;margin:0 0 8px}.ig-perfil .cifra b{font-weight:700}
+.ig-perfil .bio{font-size:14.5px;line-height:1.4;margin:0;color:#333}
+.ig-tabs{display:flex;justify-content:center;border-top:1px solid #e3e3e3}
+.ig-tabs span{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:700;letter-spacing:.08em;padding:13px 4px;margin-top:-1px;border-top:1.5px solid #111}
+.parrilla{display:grid;grid-template-columns:repeat(3,1fr);gap:3px}
+.pz{all:unset;box-sizing:border-box;cursor:pointer;display:block;position:relative;overflow:hidden;background:#f2f0ee}
+.pz img{width:100%;aspect-ratio:4/5;object-fit:cover;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pz:hover img{transform:scale(1.03)}
+.pz .ico{position:absolute;top:10px;right:10px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.35))}
+.pz .velo{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;background:linear-gradient(to top,rgba(30,28,26,.72),rgba(30,28,26,0) 55%);color:#fff;opacity:0;transition:opacity .25s}
+.pz:hover .velo,.pz:focus-visible .velo{opacity:1}
+.pz .velo b{display:block;font-size:15px;font-weight:700;line-height:1.25}
+.pz .velo small{display:block;font-size:12.5px;opacity:.9;margin-top:2px}
+.pz:focus-visible{outline:3px solid #677cbc;outline-offset:-3px}
+
+dialog{border:0;padding:0;background:transparent;overflow:visible;max-width:none;max-height:none}
+dialog::backdrop{background:rgba(40,37,34,.72)}
+.escena{display:flex;align-items:center;gap:18px}
+.flecha{flex:none;width:46px;height:46px;border-radius:50%;border:0;background:#fff;color:#111;font-size:22px;line-height:1;cursor:pointer;transition:transform .15s,opacity .2s}
+.flecha:active{transform:scale(.94)}.flecha:disabled{opacity:.25;cursor:default}
+.tel{width:min(380px,84vw,50vh);background:#fff;border:10px solid #161616;border-radius:46px;overflow:hidden;font-family:"Segoe UI",system-ui,-apple-system,sans-serif;color:#111;box-shadow:0 30px 60px -20px rgba(0,0,0,.6)}
+.tel-isla{height:30px;display:flex;justify-content:center;align-items:center}.tel-isla i{width:84px;height:20px;border-radius:12px;background:#161616}
+.tel-cab{display:flex;align-items:center;gap:10px;padding:8px 12px}
+.tel-cab .a{width:32px;height:32px;border-radius:50%;background:#f2f0ee;display:flex;align-items:center;justify-content:center;border:1px solid #e3e3e3}
+.tel-cab .a img{width:74%}
+.tel-cab b{font-size:13.5px;font-weight:600;flex:1}
+.tel-cab u{text-decoration:none;font-size:18px;letter-spacing:1px}
+.tel-car{position:relative}
+.tel-pista{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.tel-pista::-webkit-scrollbar{display:none}
+.tel-pista img{flex:none;width:100%;aspect-ratio:4/5;object-fit:cover;scroll-snap-align:start;background:#f2f0ee}
+.tel-cuenta{position:absolute;top:10px;right:10px;background:rgba(20,20,20,.7);color:#fff;font-size:12px;border-radius:999px;padding:3px 9px}
+.tel-acc{display:flex;align-items:center;gap:14px;padding:10px 12px 4px;position:relative}
+.tel-acc svg:last-child{margin-left:auto}
+.tel-puntos{position:absolute;left:0;right:0;top:18px;display:flex;justify-content:center;gap:4px;pointer-events:none}
+.tel-puntos i{width:6px;height:6px;border-radius:50%;background:#c7c7c7;transition:background-color .2s,transform .2s}
+.tel-puntos i.on{background:#3897f0;transform:scale(1.15)}
+.tel-pie{padding:4px 12px 18px;font-size:13px;line-height:1.4}
+.tel-pie b{font-weight:600}.tel-pie span{display:block;color:#777;font-size:12px;margin-top:2px}
+.cerrar{position:fixed;top:18px;right:22px;font:600 14px "Segoe UI",system-ui,sans-serif;border:0;border-radius:999px;background:#fff;color:#111;padding:9px 18px;cursor:pointer}
+@media (max-width:560px){.ig-perfil{gap:18px;padding:20px 18px}.ig-av{width:72px;height:72px}.flecha{display:none}.escena{gap:0}}
+
+/* 2 lineas */
+.lineas{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ln{background:var(--crema);border-radius:20px;padding:22px;display:grid;grid-template-columns:190px 1fr;gap:22px}
+.muestra{aspect-ratio:4/5;border-radius:10px;display:flex;flex-direction:column;overflow:hidden;border:1px solid rgba(0,0,0,.06)}
+.muestra .logo{height:22%;display:flex;align-items:center;justify-content:center;padding:0 22%}
+.muestra .logo img{max-height:26px;width:auto;max-width:100%}
+.muestra .logo small{font-size:10px;letter-spacing:.08em;text-transform:uppercase;opacity:.55}
+.muestra p{margin:0;padding:4px 16px;text-align:center;font-size:17px;line-height:1.25;flex:1;display:flex;align-items:center;justify-content:center}
+.muestra p span{display:block}
+.muestra p b{font-weight:800}
+.muestra .pie{height:20%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;letter-spacing:.04em}
+.ln h3{font-size:21px;margin-bottom:2px}
+.est{display:inline-block;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:3px 10px;margin:4px 0 12px}
+.est.ok{background:#e3efe9;color:var(--menta)}.est.prov{background:#f1e7dc;color:#8a6a48}
+.col{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.col u{width:30px;height:30px;border-radius:50%;border:1px solid rgba(0,0,0,.08);text-decoration:none}
+.dato{font-size:14.5px;line-height:1.45;margin:0 0 6px}
+.dato b{color:var(--gris);font-size:12px;letter-spacing:.07em;text-transform:uppercase;display:block}
+.dato s{text-decoration:none;color:#a39a91}
+.falta{font-size:13.5px;line-height:1.45;color:#8a6a48;margin:8px 0 0}
+
+/* 3 ejemplos */
+.filtros{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.filtros button{font:500 15px "Avenir LT Pro","Segoe UI",sans-serif;border:1px solid var(--linea);background:var(--crema);color:var(--tinta);border-radius:999px;padding:8px 16px;cursor:pointer;transition:background-color .2s,color .2s}
+.filtros button[aria-pressed=true]{background:var(--azul);border-color:var(--azul);color:#fff}
+.refs{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.ref{background:var(--crema);border-radius:20px;padding:16px}
+.ref a{display:block;border-radius:10px;overflow:hidden;border:1px solid var(--linea);background:#fff}
+.ref img{width:100%;max-height:420px;object-fit:contain;object-position:top left}
+.ref h3{margin:14px 4px 2px}
+.ref .tipo{font-size:12px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--menta);margin:0 4px}
+.ref p{font-size:15px;line-height:1.5;margin:6px 4px 4px}
+.ref p b{color:var(--azul)}
+
+/* 4 visor */
+.visor{background:#e9e9e7;border-radius:20px;overflow:hidden;border:1px solid #d6d4d0;font-family:"Segoe UI",system-ui,sans-serif;color:#1c1c1c}
+.v-top{background:#f6f6f4;border-bottom:1px solid #d9d7d3;padding:14px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.v-top .t b{display:block;font-size:17px;font-weight:700}.v-top .t span{font-size:12.5px;color:#666}
+.v-tabs{margin-left:auto;background:#e2e2df;border-radius:10px;padding:4px;display:flex;font-size:14px}
+.v-tabs span{padding:6px 14px;border-radius:7px;color:#555}.v-tabs span.on{background:#fff;color:#111;font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.v-top .cuenta{font-size:14px;font-weight:600}
+.v-btn{font:600 14px "Segoe UI",system-ui,sans-serif;border:1px solid #cfcdc8;background:#fff;border-radius:9px;padding:9px 14px}
+.v-btn.f{background:#1a1a1a;color:#fff;border-color:#1a1a1a}
+.v-cuerpo{display:grid;grid-template-columns:86px 1fr 340px}
+.v-min{padding:12px;display:flex;flex-direction:column;gap:8px;border-right:1px solid #d9d7d3}
+.v-min div{position:relative;border-radius:8px;overflow:hidden;border:2px solid transparent}
+.v-min div.on{border-color:#111}
+.v-min small{position:absolute;left:4px;bottom:4px;background:#fff;border-radius:50%;width:18px;height:18px;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center}
+.v-centro{padding:20px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.v-centro .pista{font-size:13.5px;color:#555;align-self:stretch;text-align:center}
+.lienzo{position:relative;width:min(100%,460px);box-shadow:0 12px 30px -16px rgba(0,0,0,.4);cursor:crosshair;user-select:none}
+.lienzo img{width:100%;pointer-events:none}
+.marca{position:absolute;width:26px;height:26px;margin:-13px 0 0 -13px;border-radius:50%;background:#e2543c;color:#fff;font:700 13px/26px "Segoe UI",sans-serif;text-align:center;box-shadow:0 0 0 3px rgba(255,255,255,.85)}
+.caja-m{position:absolute;border:2.5px solid #e2543c;background:rgba(226,84,60,.08);border-radius:4px}
+.caja-m .marca{left:0;top:0}
+.v-panel{background:#f6f6f4;border-left:1px solid #d9d7d3;padding:18px;font-size:14px}
+.v-panel h4{margin:0 0 12px;font-size:17px;display:flex;justify-content:space-between;align-items:center}
+.v-panel h4 span{font-size:12px;font-weight:600;border:1px dashed #bbb;border-radius:999px;padding:3px 10px;color:#555}
+.v-panel .v-btn{display:block;width:100%;text-align:center}
+.pedido{background:#fff;border:1px solid #dcdad5;border-radius:10px;padding:10px 12px;margin-top:10px;display:grid;grid-template-columns:26px 1fr;gap:10px}
+.pedido .marca{position:static;margin:0}
+.pedido p{margin:0;line-height:1.4}
+.pedido em{display:inline-block;font-style:normal;font-size:12px;font-weight:600;background:#eeeeeb;border-radius:999px;padding:2px 9px;margin-top:6px}
+.v-panel h5{margin:18px 0 0;font-size:13px}
+.pasos4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.pasos4 div{background:var(--crema);border-radius:16px;padding:18px 20px}
+.pasos4 .k{font-family:"Elsie",serif;font-size:26px;color:var(--azul);line-height:1}
+.pasos4 b{display:block;margin:6px 0 2px}
+.pasos4 span{font-size:15px;line-height:1.45;display:block}
+
+footer{padding:56px 0 64px;font-size:14.5px;color:var(--gris)}
+
+@media (max-width:1000px){
+  .parrilla{grid-template-columns:repeat(2,1fr)}
+  .lineas,.refs{grid-template-columns:1fr}
+  .v-cuerpo{grid-template-columns:1fr}.v-min{display:none}.v-panel{border-left:0;border-top:1px solid #d9d7d3}
+  .v-tabs{margin-left:0}.pasos4{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){.ancho{padding:0 16px}.ln{grid-template-columns:1fr}.muestra{max-width:220px}.pasos4{grid-template-columns:1fr}}
+
+/* ===== celular ===== */
+.volver{display:flex;align-items:center;justify-content:center;flex:none;width:38px;height:38px;margin-left:-8px;border-radius:50%;color:var(--tinta);text-decoration:none;transition:background-color .2s}
+.volver:hover{background:var(--lav)}
+.pie-nav,.desliza{display:none}
+@media (max-width:720px){
+  html{scroll-padding-top:60px}
+  body{font-size:16px;padding-bottom:calc(66px + env(safe-area-inset-bottom))}
+  .ancho{padding:0 18px}
+  .barra .ancho{height:52px;gap:6px}
+  .barra nav{display:none}
+  .barra img{height:19px}
+  .portada{padding:34px 0 6px}
+  .portada p{font-size:17px}
+  section{padding:44px 0 8px}
+  .cab{gap:12px;flex-wrap:nowrap}.cab .n{font-size:34px}
+  .sub{font-size:16px;margin-bottom:20px}
+
+  /* navegación abajo, al alcance del pulgar */
+  .pie-nav{display:grid;grid-template-columns:repeat(4,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;
+    background:rgba(255,250,246,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    border-top:1px solid var(--linea);padding:6px 6px calc(6px + env(safe-area-inset-bottom))}
+  .pie-nav a{display:flex;flex-direction:column;align-items:center;gap:1px;min-height:50px;justify-content:center;
+    text-decoration:none;color:var(--gris);font-size:11.5px;font-weight:500;border-radius:14px;transition:background-color .2s,color .2s;-webkit-tap-highlight-color:transparent}
+  .pie-nav a b{font-family:"Elsie",serif;font-weight:400;font-size:19px;line-height:1.1}
+  .pie-nav a.on{background:var(--lav);color:var(--azul)}
+  .pie-nav a:active{background:var(--lav)}
+
+  /* 1 parrilla: como se ve Instagram en el teléfono, de borde a borde */
+  #parrilla .ig{margin:0 -18px;border-radius:0;border-left:0;border-right:0}
+  .ig-perfil{gap:16px;padding:18px}
+  .ig-av{width:70px;height:70px}
+  .ig-perfil h3{font-size:18px;margin-bottom:4px}
+  .ig-perfil .cifra{margin-bottom:4px}
+  .parrilla{grid-template-columns:repeat(3,1fr);gap:2px}
+  .pz .ico{top:6px;right:6px;width:16px;height:16px}
+  .pz .velo{display:none}
+  .pz:active img{transform:scale(.97)}
+
+  /* la pieza abierta ocupa la pantalla: no hace falta dibujar un teléfono dentro del teléfono */
+  dialog{width:100vw;height:100dvh;max-width:100vw;max-height:100dvh;margin:0;background:#fff}
+  dialog::backdrop{background:#fff}
+  .escena{height:100%;display:block}
+  .tel{width:100%;height:100%;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;justify-content:center}
+  .tel-isla{display:none}
+  .tel-cab{padding:10px 14px;padding-right:96px}
+  .tel-pie{padding:6px 14px 18px;font-size:14px}
+  .cerrar{top:calc(8px + env(safe-area-inset-top));right:10px;background:#f2f0ee;padding:10px 16px;z-index:2}
+
+  /* 2 marcas: se pasan con el dedo, una por una */
+  .lineas{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -18px;padding:0 18px 6px;scroll-padding:0 18px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .lineas::-webkit-scrollbar{display:none}
+  .ln{flex:none;width:84%;scroll-snap-align:start;grid-template-columns:1fr;gap:16px;padding:18px}
+  .muestra{max-width:none;width:62%;margin:0 auto}
+  .desliza{display:flex;align-items:center;justify-content:space-between;font-size:13px;color:var(--gris);margin-top:10px}
+  .desliza i{font-style:normal;display:flex;gap:5px}
+  .desliza i u{width:6px;height:6px;border-radius:50%;background:#d2cbc3;transition:background-color .2s,transform .2s}
+  .desliza i u.on{background:var(--azul);transform:scale(1.25)}
+
+  /* 3 ejemplos */
+  .filtros{flex-wrap:nowrap;overflow-x:auto;margin:0 -18px 16px;padding:8px 18px;scrollbar-width:none;position:sticky;top:52px;z-index:5;background:rgba(242,240,238,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+  .filtros::-webkit-scrollbar{display:none}
+  .filtros button{flex:none;min-height:40px;padding:8px 16px}
+  .refs{gap:12px}
+  .ref{padding:12px;border-radius:18px}
+  .ref img{max-height:300px}
+  .ref h3{font-size:18px;margin-top:12px}
+
+  /* 4 visor */
+  .visor{margin:0 -18px;border-radius:0;border-left:0;border-right:0}
+  .v-top{padding:14px 18px;gap:10px}
+  .v-top .t{flex-basis:100%}
+  .v-tabs{flex-basis:100%;overflow-x:auto;scrollbar-width:none}
+  .v-tabs span{flex:1;text-align:center;white-space:nowrap;padding:8px 10px}
+  .v-top .cuenta{flex-basis:100%}
+  .v-top .v-btn{flex:1 1 100%;text-align:center;padding:12px 14px}
+  .v-centro{padding:16px 18px}
+  .lienzo{width:100%}
+  .marca{width:30px;height:30px;margin:-15px 0 0 -15px;line-height:30px}
+  .pedido .marca{width:26px;height:26px;margin:0;line-height:26px}
+  .v-panel .v-btn{padding:13px 14px}
+  .pasos4{grid-template-columns:1fr;gap:10px}
+  footer{padding:36px 0 28px}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pz img,.pz .velo{transition:none}}
+</style>
+</head>
+<body>
+
+<div class="barra"><div class="ancho">
+  <a class="volver" href="../" aria-label="Volver al inicio"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></a>
+  <img src="marca/logos/mas-paz-mental_horizontal_lavanda.svg" alt="Más Paz Mental">
+  <nav aria-label="Secciones">
+    <a href="#parrilla"><span>1</span>Lo que hemos hecho</a>
+    <a href="#lineas"><span>2</span>Las marcas cargadas</a>
+    <a href="#ejemplos"><span>3</span>Ejemplos a imitar</a>
+    <a href="#visor"><span>4</span>Pedir cambios</a>
+  </nav>
+</div></div>
+
+<div class="portada"><div class="ancho">
+  <h1>Estudio MPM: del tema a la <em>pieza.</em></h1>
+  <p>Lo que ya hizo, las marcas que conoce, las piezas reales de las que aprende y cómo se le piden cambios.</p>
+</div></div>
+
+<section id="parrilla"><div class="ancho">
+  <div class="cab"><span class="n">1</span><h2>Lo que hemos hecho</h2></div>
+  <p class="sub">Así se vería la parrilla de Instagram con las piezas que ya hizo el estudio. Toca una para abrirla como en el celular.</p>
+  <div class="ig">
+    <div class="ig-perfil">
+      <div class="ig-av"><span><img src="marca/logos/mas-paz-mental_apilado_lavanda.png" alt=""></span></div>
+      <div>
+        <h3>maspazmental</h3>
+        <p class="cifra"><b>10</b> publicaciones</p>
+        <p class="bio">Piezas hechas por el Estudio MPM. Son pruebas: todavía no están publicadas.</p>
+      </div>
+    </div>
+    <div class="ig-tabs"><span><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>PUBLICACIONES</span></div>
+    <div class="parrilla">
+<button class="pz" data-id="limites-trabajo-un-minuto" data-n="8" data-t="Un minuto que mide un minuto" data-s="Más Paz Mental · Guía · 8 láminas" aria-label="Abrir «Un minuto que mide un minuto»"><img loading="lazy" src="piezas/limites-trabajo-un-minuto/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Un minuto que mide un minuto</b><small>Más Paz Mental · Guía · 8 láminas</small></span></span></button>
+<button class="pz" data-id="mpm1-ansiedad-3am" data-n="9" data-t="La ventana que se tapa" data-s="Más Paz Mental · Reflexión · 9 láminas" aria-label="Abrir «La ventana que se tapa»"><img loading="lazy" src="piezas/mpm1-ansiedad-3am/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>La ventana que se tapa</b><small>Más Paz Mental · Reflexión · 9 láminas</small></span></span></button>
+<button class="pz" data-id="mpm1-compararte-en-redes" data-n="9" data-t="El recorte" data-s="Más Paz Mental · Reflexión · 9 láminas" aria-label="Abrir «El recorte»"><img loading="lazy" src="piezas/mpm1-compararte-en-redes/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>El recorte</b><small>Más Paz Mental · Reflexión · 9 láminas</small></span></span></button>
+<button class="pz" data-id="mpm1-limites-con-mama" data-n="8" data-t="Límites con mamá" data-s="Más Paz Mental · Carrusel · 8 láminas" aria-label="Abrir «Límites con mamá»"><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Límites con mamá</b><small>Más Paz Mental · Carrusel · 8 láminas</small></span></span></button>
+<button class="pz" data-id="no-se-que-me-pasa" data-n="8" data-t="Cuando no sabes qué te pasa" data-s="Más Paz Mental · Reflexión · 8 láminas" aria-label="Abrir «Cuando no sabes qué te pasa»"><img loading="lazy" src="piezas/no-se-que-me-pasa/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Cuando no sabes qué te pasa</b><small>Más Paz Mental · Reflexión · 8 láminas</small></span></span></button>
+<button class="pz" data-id="sinimg-frente-lo-que-dices" data-n="9" data-t="Lo que quedó debajo" data-s="Más Paz Mental · Reflexión · 9 láminas" aria-label="Abrir «Lo que quedó debajo»"><img loading="lazy" src="piezas/sinimg-frente-lo-que-dices/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Lo que quedó debajo</b><small>Más Paz Mental · Reflexión · 9 láminas</small></span></span></button>
+<button class="pz" data-id="sinimg-letra-carga-mental" data-n="8" data-t="Descansar, de último" data-s="Más Paz Mental · Reflexión · 8 láminas" aria-label="Abrir «Descansar, de último»"><img loading="lazy" src="piezas/sinimg-letra-carga-mental/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Descansar, de último</b><small>Más Paz Mental · Reflexión · 8 láminas</small></span></span></button>
+<button class="pz" data-id="sinimg-limpio-decir-que-no" data-n="8" data-t="Lo que sobra se despeja" data-s="Más Paz Mental · Frases para decir · 8 láminas" aria-label="Abrir «Lo que sobra se despeja»"><img loading="lazy" src="piezas/sinimg-limpio-decir-que-no/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Lo que sobra se despeja</b><small>Más Paz Mental · Frases para decir · 8 láminas</small></span></span></button>
+<button class="pz" data-id="sinimg-ordenado-antes-de-estallar" data-n="8" data-t="Antes de estallar" data-s="Más Paz Mental · Guía · 8 láminas" aria-label="Abrir «Antes de estallar»"><img loading="lazy" src="piezas/sinimg-ordenado-antes-de-estallar/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>Antes de estallar</b><small>Más Paz Mental · Guía · 8 láminas</small></span></span></button>
+<button class="pz" data-id="elegirme-ruptura-cafe" data-n="9" data-t="¿Y a mí cuál me gustaba?" data-s="Retiro ElegirME · Reflexión · 9 láminas" aria-label="Abrir «¿Y a mí cuál me gustaba?»"><img loading="lazy" src="piezas/elegirme-ruptura-cafe/export/lamina-01.jpg" alt=""><svg class="ico" width="20" height="20" viewBox="0 0 24 24" fill="#fff"><path d="M8 3h10a3 3 0 0 1 3 3v10h-2V6a1 1 0 0 0-1-1H8z"/><rect x="3" y="7" width="14" height="14" rx="3"/></svg><span class="velo"><span><b>¿Y a mí cuál me gustaba?</b><small>Retiro ElegirME · Reflexión · 9 láminas</small></span></span></button>
+    </div>
+  </div>
+</div></section>
+
+<section id="lineas"><div class="ancho">
+  <div class="cab"><span class="n">2</span><h2>Las marcas que tiene cargadas</h2></div>
+  <p class="sub">Ocho líneas, cada una con su paleta, sus letras y su logo. La misma frase cambia de piel según la línea; el color nunca se elige a mano.</p>
+  <div class="lineas">
+<article class="ln">
+<div class="muestra" style="background:#f2f0ee;color:#4c4641;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/mas-paz-mental_horizontal_lavanda.svg" alt="Logo de Más Paz Mental"></div><p><span>Descansar también es <b style="color:#516296">hacer algo.</b></span></p>
+<div class="pie" style="background:#516296;color:#ffffff">@maspazmental</div></div>
+<div><h3>Más Paz Mental</h3><span class="est ok">Con piezas reales medidas</span>
+<div class="col"><u style="background:#f2f0ee" title="claro #f2f0ee"></u><u style="background:#516296" title="solido #516296"></u><u style="background:#96a4d0" title="tinte #96a4d0"></u><u style="background:#4c4641" title="texto #4c4641"></u><u style="background:#677cbc" title="enfasis 2 #677cbc"></u><u style="background:#84d0c2" title="acento #84d0c2"></u><u style="background:#4d7d74" title="acento texto #4d7d74"></u><u style="background:#b8e3db" title="menta #b8e3db"></u><u style="background:#c5b5aa" title="arena #c5b5aa"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · Elsie · <s>Gradiola (falta)</s> · <s>BiroScript Plus (falta)</s> · <s>Walter Turncoat (falta)</s></p>
+<p class="dato"><b>A quién le habla</b>Complacencia, sobrecarga, culpa, resentimiento, límites.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#f3f1ef;color:#47413c;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/comunidad-mpm_horizontal_lavanda.svg" alt="Logo de Comunidad Más Paz Mental"></div><p><span>Descansar también es <b style="color:#5b6c9e">hacer algo.</b></span></p>
+<div class="pie" style="background:#5b6c9e;color:#ffffff">@maspazmental</div></div>
+<div><h3>Comunidad Más Paz Mental</h3><span class="est ok">Con piezas reales medidas</span>
+<div class="col"><u style="background:#f3f1ef" title="claro #f3f1ef"></u><u style="background:#5b6c9e" title="solido #5b6c9e"></u><u style="background:#eff0b9" title="tinte #eff0b9"></u><u style="background:#47413c" title="texto #47413c"></u><u style="background:#677cbc" title="enfasis 2 #677cbc"></u><u style="background:#e3e787" title="acento #e3e787"></u><u style="background:#b6ba6c" title="oliva #b6ba6c"></u><u style="background:#fea168" title="naranja #fea168"></u><u style="background:#b36f48" title="terracota #b36f48"></u><u style="background:#ffd0b5" title="durazno #ffd0b5"></u><u style="background:#a7adda" title="lavanda #a7adda"></u><u style="background:#c5b4aa" title="arena #c5b4aa"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · Elsie · <s>Gradiola (falta)</s> · <s>BiroScript Plus (falta)</s> · <s>Walter Turncoat (falta)</s></p>
+<p class="dato"><b>A quién le habla</b>Sostener el proceso en el día a día: constancia, acompañamiento; ansiedad, autoestima, duelo, relaciones.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#fdfdfb;color:#4b6176;font-family:'Quicksand','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/psicolideres_horizontal_color.png" alt="Logo de PsicoLíderes con Más"></div><p><span>Descansar también es <b style="color:#4b6176">hacer algo.</b></span></p>
+<div class="pie" style="background:#4b6176;color:#ffffff">@maspazmental</div></div>
+<div><h3>PsicoLíderes con Más</h3><span class="est ok">Con piezas reales medidas</span>
+<div class="col"><u style="background:#fdfdfb" title="claro #fdfdfb"></u><u style="background:#4b6176" title="solido #4b6176"></u><u style="background:#a8bfe0" title="tinte #a8bfe0"></u><u style="background:#717c71" title="enfasis 2 #717c71"></u><u style="background:#e3c690" title="acento #e3c690"></u><u style="background:#cedccf" title="salvia #cedccf"></u></div>
+<p class="dato"><b>Letras</b><s>Quicksand (falta)</s> · Elsie</p>
+<p class="dato"><b>A quién le habla</b>Psicólog@s: dependencia del uno a uno, escalar sin perder criterio clínico.</p><p class="falta">Falta cargar su letra principal (Quicksand); mientras tanto se usa Avenir.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#fdf1e5;color:#4c4641;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/mas-paz-mental-2_horizontal_negro.svg" alt="Logo de Más Paz Mental 2"></div><p><span>Descansar también es <b style="color:#38606e">hacer algo.</b></span></p>
+<div class="pie" style="background:#38606e;color:#ffffff">@maspazmental</div></div>
+<div><h3>Más Paz Mental 2</h3><span class="est prov">Provisional: solo paleta y logo</span>
+<div class="col"><u style="background:#fdf1e5" title="claro #fdf1e5"></u><u style="background:#38606e" title="solido #38606e"></u><u style="background:#b5d1db" title="tinte #b5d1db"></u><u style="background:#4c4641" title="texto #4c4641"></u><u style="background:#f2f0ee" title="sobre solido 2 #f2f0ee"></u><u style="background:#83b5c6" title="acento #83b5c6"></u><u style="background:#c5b5aa" title="arena #c5b5aa"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · Elsie · <s>Gradiola (falta)</s></p>
+<p class="dato"><b>A quién le habla</b>Sin definir en el manual.</p><p class="falta">Falta confirmar la paleta con la guía de estilo de esta línea.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#f7f5f4;color:#434e77;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/inmune-al-narcisismo_apilado.svg" alt="Logo de Inmune al Narcisismo"></div><p><span>Descansar también es <b style="color:#5d6799">hacer algo.</b></span></p>
+<div class="pie" style="background:#434e77;color:#ffffff">@maspazmental</div></div>
+<div><h3>Inmune al Narcisismo</h3><span class="est prov">Provisional: solo paleta y logo</span>
+<div class="col"><u style="background:#f7f5f4" title="claro #f7f5f4"></u><u style="background:#434e77" title="solido #434e77"></u><u style="background:#b0b5cd" title="tinte #b0b5cd"></u><u style="background:#5d6799" title="enfasis #5d6799"></u><u style="background:#627394" title="enfasis 2 #627394"></u><u style="background:#bd9948" title="acento #bd9948"></u><u style="background:#91763c" title="acento texto #91763c"></u><u style="background:#c8cddc" title="niebla #c8cddc"></u><u style="background:#e5ded9" title="piedra #e5ded9"></u><u style="background:#d1b982" title="oro claro #d1b982"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · <s>Dreaming Outloud Script (falta)</s> · <s>The Seasons (falta)</s></p>
+<p class="dato"><b>A quién le habla</b>Manipulación, dinámicas dañinas, recuperar claridad.</p><p class="falta">Faltan sus dos letras decorativas; mientras llegan se usa Elsie.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#f7f0ea;color:#4c4641;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><small>sin logo</small></div><p><span>Descansar también es <b style="color:#466479">hacer algo.</b></span></p>
+<div class="pie" style="background:#466479;color:#ffffff">@maspazmental</div></div>
+<div><h3>Sanando (journal)</h3><span class="est prov">Provisional: solo paleta y logo</span>
+<div class="col"><u style="background:#f7f0ea" title="claro #f7f0ea"></u><u style="background:#466479" title="solido #466479"></u><u style="background:#99a9c1" title="tinte #99a9c1"></u><u style="background:#4c4641" title="texto #4c4641"></u><u style="background:#6d829b" title="enfasis 2 #6d829b"></u><u style="background:#b28484" title="acento #b28484"></u><u style="background:#856363" title="acento texto #856363"></u><u style="background:#b6ccb2" title="salvia #b6ccb2"></u><u style="background:#d3dfd1" title="salvia claro #d3dfd1"></u><u style="background:#d5bbba" title="rosa claro #d5bbba"></u><u style="background:#dbcdc2" title="arena #dbcdc2"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · <s>Bli (falta)</s></p>
+<p class="dato"><b>A quién le habla</b>Sin definir en el manual.</p><p class="falta">Falta el logo y su letra decorativa (Bli); mientras llegan se usa Elsie.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#eaf0db;color:#4c4641;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/elegirme_con-simbolo_verde.svg" alt="Logo de Retiro ElegirME"></div><p><span>Descansar también es <b style="color:#4c4641">hacer algo.</b></span></p>
+<div class="pie" style="background:#4f6f6c;color:#ffffff">@maspazmental</div></div>
+<div><h3>Retiro ElegirME</h3><span class="est prov">Provisional: solo paleta y logo</span>
+<div class="col"><u style="background:#eaf0db" title="claro #eaf0db"></u><u style="background:#4f6f6c" title="solido #4f6f6c"></u><u style="background:#a2b7b0" title="tinte #a2b7b0"></u><u style="background:#4c4641" title="texto #4c4641"></u><u style="background:#6e918e" title="enfasis 2 #6e918e"></u><u style="background:#d4e0b6" title="acento #d4e0b6"></u><u style="background:#bfb3a9" title="arena #bfb3a9"></u><u style="background:#f2f0ee" title="marfil #f2f0ee"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · Elsie</p>
+<p class="dato"><b>A quién le habla</b>Reconexión con ella misma, culpa, autocuidado.</p><p class="falta">El verde de fondo se oscureció un poco para que el texto blanco se lea. Por validar.</p></div></article>
+<article class="ln">
+<div class="muestra" style="background:#f2f0ee;color:#4c4641;font-family:'Avenir LT Pro','Avenir LT Pro',sans-serif">
+<div class="logo"><img src="marca/logos/elegirnos_texto_negro.svg" alt="Logo de Retiro ElegirNOS"></div><p><span>Descansar también es <b style="color:#4c4641">hacer algo.</b></span></p>
+<div class="pie" style="background:#4a665d;color:#ffffff">@maspazmental</div></div>
+<div><h3>Retiro ElegirNOS</h3><span class="est prov">Provisional: solo paleta y logo</span>
+<div class="col"><u style="background:#f2f0ee" title="claro #f2f0ee"></u><u style="background:#4a665d" title="solido #4a665d"></u><u style="background:#a2b7b0" title="tinte #a2b7b0"></u><u style="background:#4c4641" title="texto #4c4641"></u><u style="background:#66887d" title="enfasis 2 #66887d"></u><u style="background:#bf9370" title="acento #bf9370"></u><u style="background:#bfb3a9" title="arena #bfb3a9"></u><u style="background:#dfc9b8" title="desierto #dfc9b8"></u></div>
+<p class="dato"><b>Letras</b>Avenir LT Pro · Elsie</p>
+<p class="dato"><b>A quién le habla</b>Comunicación de pareja, patrones que desgastan.</p><p class="falta">El verde de fondo se oscureció un poco para que el texto blanco se lea. Por validar.</p></div></article>
+  </div>
+  <div class="desliza" aria-hidden="true"><span>Desliza para ver las ocho</span><i id="ln-puntos"></i></div>
+</div></section>
+
+<section id="ejemplos"><div class="ancho">
+  <div class="cab"><span class="n">3</span><h2>Los ejemplos que puede imitar</h2></div>
+  <p class="sub">Piezas reales de Más Paz Mental que el estudio tiene estudiadas. De cada una sabe qué tomar y qué no copiar. Toca una para verla grande.</p>
+  <div class="filtros" role="group" aria-label="Filtrar ejemplos">
+<button data-f="todos" aria-pressed="true">Todos</button>
+<button data-f="carrusel" aria-pressed="false">Carruseles</button>
+<button data-f="portada" aria-pressed="false">Portadas</button>
+<button data-f="historia" aria-pressed="false">Historias</button>
+<button data-f="testimonio" aria-pressed="false">Testimonios</button>
+<button data-f="linkedin" aria-pressed="false">LinkedIn</button>
+<button data-f="vacante" aria-pressed="false">Vacantes</button>
+  </div>
+  <div class="refs">
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHUhxbAaWg_la-relacion-con-su-mama.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHUhxbAaWg_la-relacion-con-su-mama.jpg" alt="La persona que más cruza tus límites"></a><h3>La persona que más cruza tus límites</h3><div class="tipo">Dibujo con personaje</div><p><b>Qué tomar:</b> Una raya que ella borra y que en el giro es un camino que sube: la metáfora avanza, no se repite. <b>Qué no:</b> El cierre principal, que cambia de registro.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAG8Qxdomqo_la-paz-mental-no-es-resistir.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAG8Qxdomqo_la-paz-mental-no-es-resistir.jpg" alt="El ruido no es tu culpa"></a><h3>El ruido no es tu culpa</h3><div class="tipo">Dibujo con personaje</div><p><b>Qué tomar:</b> La mancha tapa, crece, se encoge y desaparece: se ve bajar el ruido antes de que lo expliquen. <b>Qué no:</b> El cierre, que rompe el sistema con cuatro tamaños de letra.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHRk_lHdKU_los-deberias.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHRk_lHdKU_los-deberias.jpg" alt="Los deberías"></a><h3>Los deberías</h3><div class="tipo">Papel y marcador</div><p><b>Qué tomar:</b> Las tiras se apilan y cada gesto de lápiz aparece una sola vez, haciendo lo que la frase dice. <b>Qué no:</b> «Aro en portada y aro en cierre» como fórmula.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHUjAbTuVE_quien-tomo-esta-decision.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHUjAbTuVE_quien-tomo-esta-decision.jpg" alt="¿Quién tomó esa decisión?"></a><h3>¿Quién tomó esa decisión?</h3><div class="tipo">Objeto del teléfono</div><p><b>Qué tomar:</b> El arco más completo. La burbuja de chat aparece una sola vez. <b>Qué no:</b> La portada sin foto real: la necesita.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHRdx11SzU_frases-de-apoyo-en-crisis.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHRdx11SzU_frases-de-apoyo-en-crisis.jpg" alt="Frases de apoyo en crisis"></a><h3>Frases de apoyo en crisis</h3><div class="tipo">La letra que actúa</div><p><b>Qué tomar:</b> El tiempo hecho con tipografía: cada frase nueva entra en negro y las anteriores suben y se apagan. <b>Qué no:</b> El negro puro y las 17 láminas.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHT3xbbbPQ_formas-de-farmear-aura.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHT3xbbbPQ_formas-de-farmear-aura.jpg" alt="Formas de farmear aura"></a><h3>Formas de farmear aura</h3><div class="tipo">Juego, 100 % generado</div><p><b>Qué tomar:</b> El mecanismo: un juego conocido aplicado al tema, que se rompe en el giro. <b>Qué no:</b> Los animales con gafas como molde. No va en temas sensibles.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHR8RwZNAU_cuando-estoy-en-crisis-final.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHR8RwZNAU_cuando-estoy-en-crisis-final.jpg" alt="Cuando estoy en crisis"></a><h3>Cuando estoy en crisis</h3><div class="tipo">Texto limpio</div><p><b>Qué tomar:</b> La redacción, la jerarquía con negritas y el color que se invierte una vez, justo en el giro. <b>Qué no:</b> Los íconos en círculo: son de biblioteca.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHNsYmvhag_ataque-de-panico-terremoto.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHNsYmvhag_ataque-de-panico-terremoto.jpg" alt="Ataque de pánico después de un terremoto"></a><h3>Ataque de pánico después de un terremoto</h3><div class="tipo">Texto ordenado (guía)</div><p><b>Qué tomar:</b> El orden de una guía de alarma: una instrucción completa por lámina y cuándo buscar ayuda. <b>Qué no:</b> Su densidad y su fondo fijo en un tema cotidiano.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHRoLaOoxw_cancer-decirselo-a-mis-hijos.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHRoLaOoxw_cancer-decirselo-a-mis-hijos.jpg" alt="Decírselo a mis hijas"></a><h3>Decírselo a mis hijas</h3><div class="tipo">Foto real</div><p><b>Qué tomar:</b> El testimonio en primera persona, con el color que se apaga. Solo con historia y fotos reales. <b>Qué no:</b> El esquema oscuro en temas educativos.</p></article>
+<article class="ref" data-f="carrusel"><a href="referencias/carruseles/DAHO04_GqB0_carrusel-de-catarsis.jpg" target="_blank"><img loading="lazy" src="referencias/carruseles/DAHO04_GqB0_carrusel-de-catarsis.jpg" alt="Hay algo que no les he contado"></a><h3>Hay algo que no les he contado</h3><div class="tipo">Foto real y paisaje</div><p><b>Qué tomar:</b> La playa que se desenfoca hasta ser color y el ovillo que se desenreda una vez. <b>Qué no:</b> Cinco fichas seguidas con la misma plantilla.</p></article>
+<article class="ref" data-f="portada"><a href="referencias/portada_app.jpg" target="_blank"><img loading="lazy" src="referencias/portada_app.jpg" alt="Portadas de la app"></a><h3>Portadas de la app</h3><div class="tipo">Serie</div><p><b>Qué tomar:</b> Un mundo fijo y una idea por portada: la figurita hace el verbo del título. <b>Qué no:</b> Los aros como recurso de todas.</p></article>
+<article class="ref" data-f="portada"><a href="referencias/portada_recomendacion.jpg" target="_blank"><img loading="lazy" src="referencias/portada_recomendacion.jpg" alt="Portada de recomendación"></a><h3>Portada de recomendación</h3><div class="tipo">Portada</div><p><b>Qué tomar:</b> El formato de portada con una sola idea.</p></article>
+<article class="ref" data-f="historia"><a href="referencias/historia_frases-reel.jpg" target="_blank"><img loading="lazy" src="referencias/historia_frases-reel.jpg" alt="Frases para reel"></a><h3>Frases para reel</h3><div class="tipo">Historia 9:16</div><p><b>Qué tomar:</b> Un objeto que la gente ya conoce (trino, nota) y las zonas libres arriba y abajo. <b>Qué no:</b> Usarlo en temas que no pasan por el teléfono.</p></article>
+<article class="ref" data-f="historia"><a href="referencias/historia_vacante.jpg" target="_blank"><img loading="lazy" src="referencias/historia_vacante.jpg" alt="Vacante en historia"></a><h3>Vacante en historia</h3><div class="tipo">Historia 9:16</div><p><b>Qué tomar:</b> Las zonas libres del 9:16. <b>Qué no:</b> Tiene texto de relleno.</p></article>
+<article class="ref" data-f="testimonio"><a href="referencias/testimonio_plantilla.jpg" target="_blank"><img loading="lazy" src="referencias/testimonio_plantilla.jpg" alt="Plantilla de testimonio"></a><h3>Plantilla de testimonio</h3><div class="tipo">Testimonio</div><p><b>Qué tomar:</b> La reseña como pantalla prestada, para frases con autora. <b>Qué no:</b> Son moldes vacíos: repetidos se vuelven el molde único.</p></article>
+<article class="ref" data-f="testimonio"><a href="referencias/testimonio_reel.jpg" target="_blank"><img loading="lazy" src="referencias/testimonio_reel.jpg" alt="Testimonio para reel"></a><h3>Testimonio para reel</h3><div class="tipo">Testimonio</div><p><b>Qué tomar:</b> La frase suelta con autora, en vertical.</p></article>
+<article class="ref" data-f="linkedin"><a href="referencias/linkedin_contenido.jpg" target="_blank"><img loading="lazy" src="referencias/linkedin_contenido.jpg" alt="LinkedIn: contenido"></a><h3>LinkedIn: contenido</h3><div class="tipo">LinkedIn</div><p><b>Qué tomar:</b> Una lámina, una frase de postura en voz de equipo. <b>Qué no:</b> «Contenido» nombra un puente y no lo muestra.</p></article>
+<article class="ref" data-f="linkedin"><a href="referencias/linkedin_horizontal.jpg" target="_blank"><img loading="lazy" src="referencias/linkedin_horizontal.jpg" alt="LinkedIn horizontal"></a><h3>LinkedIn horizontal</h3><div class="tipo">LinkedIn</div><p><b>Qué tomar:</b> Una sola imagen que sale de la palabra clave de la frase.</p></article>
+<article class="ref" data-f="vacante"><a href="referencias/vacante_carrusel.jpg" target="_blank"><img loading="lazy" src="referencias/vacante_carrusel.jpg" alt="Vacante en carrusel"></a><h3>Vacante en carrusel</h3><div class="tipo">Vacante</div><p><b>Qué tomar:</b> Sello, tarjeta, lista y botón: sirve para listas de requisitos. <b>Qué no:</b> Sacar este kit a un tema emocional.</p></article>
+<article class="ref" data-f="vacante"><a href="referencias/vacante_horizontal.jpg" target="_blank"><img loading="lazy" src="referencias/vacante_horizontal.jpg" alt="Vacante horizontal"></a><h3>Vacante horizontal</h3><div class="tipo">Vacante</div><p><b>Qué tomar:</b> La misma vacante en formato ancho.</p></article>
+  </div>
+</div></section>
+
+<section id="visor"><div class="ancho">
+  <div class="cab"><span class="n">4</span><h2>Así se piden los cambios</h2></div>
+  <p class="sub">El visor es una página en el navegador. Se marca sobre la lámina lo que se quiere cambiar y el estudio lo aplica. Esta es una representación: prueba a tocar la lámina para dejar una marca.</p>
+
+  <div class="visor" aria-label="Representación del visor">
+    <div class="v-top">
+      <div class="t"><b>Límites con mamá</b><span>Más Paz Mental · Formato 4:5 · 1080 × 1350</span></div>
+      <div class="v-tabs"><span>Tablero</span><span>Acuerdo</span><span>Carrusel</span><span class="on">Tamaño real</span></div>
+      <span class="cuenta">3 de 8 aprobadas</span>
+      <span class="v-btn">Descargar las imágenes</span>
+      <span class="v-btn f">Listo, que el agente aplique los cambios</span>
+    </div>
+    <div class="v-cuerpo">
+      <div class="v-min">
+<div class="on"><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-01.jpg" alt=""><small>1</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-02.jpg" alt=""><small>2</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-03.jpg" alt=""><small>3</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-04.jpg" alt=""><small>4</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-05.jpg" alt=""><small>5</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-06.jpg" alt=""><small>6</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-07.jpg" alt=""><small>7</small></div>
+<div><img loading="lazy" src="piezas/mpm1-limites-con-mama/export/lamina-08.jpg" alt=""><small>8</small></div>
+      </div>
+      <div class="v-centro">
+        <div class="pista">Lámina 1 de 8 · toca un punto de la lámina para marcarlo</div>
+        <div class="lienzo" id="lienzo">
+          <img src="piezas/mpm1-limites-con-mama/export/lamina-01.jpg" alt="Lámina 1 de «Límites con mamá»">
+          <span class="marca" style="left:76%;top:36.5%">1</span>
+          <span class="caja-m" style="left:41%;top:53%;width:57%;height:42%"><span class="marca">2</span></span>
+        </div>
+      </div>
+      <div class="v-panel">
+        <h4>Lámina 1 <span>Con cambios pedidos</span></h4>
+        <span class="v-btn f">Aprobar esta lámina</span>
+        <h5>Lo que marcaste</h5>
+        <div id="pedidos">
+          <div class="pedido"><span class="marca">1</span><p>Que esta frase pese más que las dos de arriba.<br><em>Texto más grande</em></p></div>
+          <div class="pedido"><span class="marca">2</span><p>La taza casi no se ve. Que se note que el café ya llegó.</p></div>
+        </div>
+        <h5>Comentar la lámina entera</h5>
+        <div class="pedido" style="grid-template-columns:1fr;color:#888">Lo que no es de un punto: por ejemplo, que respire más.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="pasos4">
+    <div><span class="k">1</span><b>Marcas</b><span>Un punto o un recuadro sobre la lámina, con tu comentario o un ajuste rápido.</span></div>
+    <div><span class="k">2</span><b>Avisas</b><span>Tocas «Listo, que el agente aplique los cambios» o se lo dices en el chat.</span></div>
+    <div><span class="k">3</span><b>Aplica y revisa</b><span>Cambia solo lo marcado, vuelve a exportar y vuelve a pasar los candados.</span></div>
+    <div><span class="k">4</span><b>Apruebas y descargas</b><span>Lámina por lámina. Lo que corregiste queda anotado para la próxima pieza.</span></div>
+  </div>
+</div></section>
+
+<footer><div class="ancho">Estudio MPM · Más Paz Mental · octubre de 2026. Las piezas del estudio son pruebas: sus textos no han pasado todavía por el equipo.</div></footer>
+
+<nav class="pie-nav" aria-label="Secciones">
+  <a href="#parrilla"><b>1</b>Hecho</a>
+  <a href="#lineas"><b>2</b>Marcas</a>
+  <a href="#ejemplos"><b>3</b>Ejemplos</a>
+  <a href="#visor"><b>4</b>Cambios</a>
+</nav>
+
+<dialog id="dlg" aria-label="Publicación">
+<button class="cerrar" id="dlg-x">Cerrar</button>
+<div class="escena">
+  <button class="flecha" id="ant" aria-label="Lámina anterior">&#8249;</button>
+  <div class="tel">
+    <div class="tel-isla"><i></i></div>
+    <div class="tel-cab"><span class="a"><img src="marca/logos/mas-paz-mental_apilado_lavanda.png" alt=""></span><b>maspazmental</b><u>···</u></div>
+    <div class="tel-car"><div class="tel-pista" id="pista"></div><span class="tel-cuenta" id="cuenta"></span></div>
+    <div class="tel-acc">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8"><path d="M12 20.5s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.6a4.3 4.3 0 0 1 7.5 2.7c0 5.6-7.5 10.2-7.5 10.2z"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.6 7.4L3.5 20.5l1.6-4.4a8.5 8.5 0 1 1 15.4-4.6z"/></svg>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linejoin="round"><path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/></svg>
+      <div class="tel-puntos" id="puntos"></div>
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#111" stroke-width="1.8" stroke-linejoin="round"><path d="M6 3h12v18l-6-5-6 5z"/></svg>
+    </div>
+    <div class="tel-pie"><b>maspazmental</b> <span id="dlg-t" style="display:inline;color:#111;font-size:13px"></span><span id="dlg-s"></span></div>
+  </div>
+  <button class="flecha" id="sig" aria-label="Lámina siguiente">&#8250;</button>
+</div>
+</dialog>
+
+<script>
+var dlg=document.getElementById('dlg'),pista=document.getElementById('pista'),puntos=document.getElementById('puntos'),
+    cuenta=document.getElementById('cuenta'),ant=document.getElementById('ant'),sig=document.getElementById('sig'),total=0;
+function actual(){return Math.round(pista.scrollLeft/pista.clientWidth)}
+function pinta(){var k=actual();cuenta.textContent=(k+1)+'/'+total;ant.disabled=k===0;sig.disabled=k===total-1;
+  [].forEach.call(puntos.children,function(p,i){p.classList.toggle('on',i===k)})}
+function mueve(d){pista.scrollTo({left:(actual()+d)*pista.clientWidth,behavior:'smooth'})}
+document.querySelectorAll('.pz').forEach(function(b){b.addEventListener('click',function(){
+  total=+b.dataset.n;document.getElementById('dlg-t').textContent=b.dataset.t;document.getElementById('dlg-s').textContent=b.dataset.s;
+  pista.innerHTML='';puntos.innerHTML='';
+  for(var i=1;i<=total;i++){var im=new Image();im.src='piezas/'+b.dataset.id+'/export/lamina-'+(i<10?'0':'')+i+'.jpg';im.alt='Lámina '+i;pista.appendChild(im);puntos.appendChild(document.createElement('i'))}
+  dlg.showModal();pista.scrollLeft=0;pinta()})});
+pista.addEventListener('scroll',pinta);
+ant.onclick=function(){mueve(-1)};sig.onclick=function(){mueve(1)};
+dlg.addEventListener('keydown',function(e){if(e.key==='ArrowRight')mueve(1);if(e.key==='ArrowLeft')mueve(-1)});
+document.getElementById('dlg-x').onclick=function(){dlg.close()};
+dlg.addEventListener('click',function(e){if(e.target===dlg)dlg.close()});
+
+document.querySelectorAll('.filtros button').forEach(function(f){f.addEventListener('click',function(){
+  document.querySelectorAll('.filtros button').forEach(function(x){x.setAttribute('aria-pressed',x===f)});
+  document.querySelectorAll('.ref').forEach(function(r){r.hidden=f.dataset.f!=='todos'&&r.dataset.f!==f.dataset.f})})});
+
+
+/* celular: la sección en la que vas, marcada en la barra de abajo */
+var pie=[].slice.call(document.querySelectorAll('.pie-nav a'));
+if('IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)
+  pie.forEach(function(a){a.classList.toggle('on',a.getAttribute('href')==='#'+e.target.id)})})},{rootMargin:'-40% 0px -55% 0px'});
+  document.querySelectorAll('section[id]').forEach(function(s){io.observe(s)})}
+/* celular: puntos de las marcas */
+var lns=document.querySelector('.lineas'),lp=document.getElementById('ln-puntos'),tar=[].slice.call(document.querySelectorAll('.ln'));
+tar.forEach(function(){lp.appendChild(document.createElement('u'))});
+function lnPinta(){var c=lns.scrollLeft+lns.clientWidth/2,k=0,m=1e9;tar.forEach(function(t,i){var d=Math.abs(t.offsetLeft-lns.offsetLeft+t.offsetWidth/2-c);if(d<m){m=d;k=i}});
+  [].forEach.call(lp.children,function(u,i){u.classList.toggle('on',i===k)})}
+lns.addEventListener('scroll',lnPinta,{passive:true});lnPinta();
+
+var lienzo=document.getElementById('lienzo'),pedidos=document.getElementById('pedidos'),num=2;
+lienzo.addEventListener('click',function(e){var r=lienzo.getBoundingClientRect();num++;
+  var m=document.createElement('span');m.className='marca';m.textContent=num;m.style.left=((e.clientX-r.left)/r.width*100)+'%';m.style.top=((e.clientY-r.top)/r.height*100)+'%';lienzo.appendChild(m);
+  var p=document.createElement('div');p.className='pedido';p.innerHTML='<span class="marca">'+num+'</span><p style="color:#888">Aquí escribirías qué cambiar en este punto.</p>';pedidos.appendChild(p)});
+</script>
+</body>
+</html>

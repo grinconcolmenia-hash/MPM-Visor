@@ -1,0 +1,8 @@
+/* Avenir LT Pro es de licencia comercial: sus archivos no van en este repositorio público.
+   Se usa la Avenir que ya trae el equipo (iPhone, iPad y Mac la tienen); en los demás cae a la letra del sistema. */
+@font-face { font-family: "Avenir LT Pro"; src: local("AvenirNext-Regular"), local("Avenir Next"), local("Avenir-Roman"), local("Avenir"); font-weight: 400; font-style: normal; }
+@font-face { font-family: "Avenir LT Pro"; src: local("AvenirNext-Medium"), local("Avenir Next Medium"), local("Avenir-Medium"); font-weight: 500; font-style: normal; }
+@font-face { font-family: "Avenir LT Pro"; src: local("AvenirNext-Heavy"), local("Avenir Next Heavy"), local("Avenir-Heavy"); font-weight: 800; font-style: normal; }
+@font-face { font-family: "Avenir LT Pro"; src: local("AvenirNext-Heavy"), local("Avenir-Black"); font-weight: 900; font-style: normal; }
+@font-face { font-family: "Elsie"; src: url("Elsie-Regular.ttf") format("truetype"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Elsie"; src: url("Elsie-Black.ttf") format("truetype"); font-weight: 900; font-style: normal; font-display: swap; }
